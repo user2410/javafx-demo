@@ -16,9 +16,13 @@ public class Main extends Application {
 		try {
 			window = primaryStage;
 			
-			AlertBox abox = new AlertBox();
+			ConfirmBox cbox = new ConfirmBox();
 			Button b1 = new Button("Click me");
-			b1.setOnAction(e -> abox.display("You clicked me " + (times++), "Hey, I'm your little box"));
+			
+			b1.setOnAction(e -> {
+				boolean result = cbox.display("You clicked me " + (times++), "Send nudes ?");
+				System.out.println(result);
+			});
 
 			StackPane layout = new StackPane();
 			layout.getChildren().add(b1);
