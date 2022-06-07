@@ -9,33 +9,39 @@ import javafx.scene.layout.StackPane;
 
 public class Main extends Application {
 	Stage window;
-	static int times = 0;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			window = primaryStage;
 			
-			ConfirmBox cbox = new ConfirmBox();
-			Button b1 = new Button("Click me");
-			
-			b1.setOnAction(e -> {
-				boolean result = cbox.display("You clicked me " + (times++), "Send nudes ?");
-				System.out.println(result);
+			window.setOnCloseRequest(e -> {
+				e.consume();
+				closeProgram();
 			});
+			
+			Button b1 = new Button("Close the program");
+			
+			b1.setOnAction(e -> closeProgram());
 
 			StackPane layout = new StackPane();
 			layout.getChildren().add(b1);
 			
 			Scene scene = new Scene(layout, 600, 400);
 			window.setScene(scene);
-			window.setTitle("JavaFx demo");
 			window.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	private void closeProgram() {
+		ConfirmBox cbox = new ConfirmBox();
+		boolean answer = cbox.display("Title", "Are you sure want to close?");
+		if(answer)
+			window.close();
+	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}
