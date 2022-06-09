@@ -4,7 +4,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.CheckBox;
+import javafx.scene.layout.VBox;
 
 
 public class Main extends Application {
@@ -20,12 +21,18 @@ public class Main extends Application {
 				closeProgram();
 			});
 			
-			Button b1 = new Button("Close the program");
+			// checkboxes
+			CheckBox cb1 = new CheckBox("Orange");
+			CheckBox cb2 = new CheckBox("Apple");
+			CheckBox cb3 = new CheckBox("Grape");
 			
-			b1.setOnAction(e -> closeProgram());
-
-			StackPane layout = new StackPane();
-			layout.getChildren().add(b1);
+			cb2.setSelected(true);
+			
+			Button b1 = new Button("Order");
+			b1.setOnAction(e->handleOptions(cb1, cb2, cb3));
+			
+			VBox layout = new VBox();
+			layout.getChildren().addAll(cb1, cb2, cb3, b1);
 			
 			Scene scene = new Scene(layout, 600, 400);
 			window.setScene(scene);
@@ -42,6 +49,14 @@ public class Main extends Application {
 			window.close();
 	}
 
+	private void handleOptions(CheckBox cb1, CheckBox cb2, CheckBox cb3) {
+		String msg = "You ordered:\n";
+		if(cb1.isSelected()) msg+= "Orange\n";
+		if(cb2.isSelected()) msg+= "Apple\n";
+		if(cb3.isSelected()) msg+= "Grape\n";
+		System.out.println(msg);
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
