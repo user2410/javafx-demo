@@ -27,6 +27,8 @@ public class Main extends Application {
 			choiceBox.getItems().addAll("Apple", "Orange", "Grape");
 			choiceBox.setValue("Apple");
 			
+			choiceBox.getSelectionModel().selectedItemProperty().addListener(
+					(v, oldVal, newVal)->System.out.println(newVal));
 			Button b1 = new Button("submit");
 			b1.setOnAction(e->getChoice(choiceBox));
 			
