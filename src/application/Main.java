@@ -1,10 +1,13 @@
 package application;
 	
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 
 public class Main extends Application {
@@ -20,12 +23,16 @@ public class Main extends Application {
 				closeProgram();
 			});
 			
-			Button b1 = new Button("Close the program");
+			ChoiceBox<String> choiceBox = new ChoiceBox<String>();
+			choiceBox.getItems().addAll("Apple", "Orange", "Grape");
+			choiceBox.setValue("Apple");
 			
-			b1.setOnAction(e -> closeProgram());
-
-			StackPane layout = new StackPane();
-			layout.getChildren().add(b1);
+			Button b1 = new Button("submit");
+			b1.setOnAction(e->getChoice(choiceBox));
+			
+			VBox layout = new VBox(10);
+			layout.setPadding(new Insets(20, 20, 20, 20));
+			layout.getChildren().addAll(choiceBox, b1);
 			
 			Scene scene = new Scene(layout, 600, 400);
 			window.setScene(scene);
@@ -33,6 +40,10 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void getChoice(ChoiceBox<String> cb) {
+		System.out.println(cb.getValue());		
 	}
 	
 	private void closeProgram() {
