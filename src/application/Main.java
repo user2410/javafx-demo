@@ -1,10 +1,12 @@
 package application;
 	
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.VBox;
 
 
 public class Main extends Application {
@@ -20,12 +22,23 @@ public class Main extends Application {
 				closeProgram();
 			});
 			
-			Button b1 = new Button("Close the program");
+			ComboBox<String> cbox = new ComboBox<String>();
+			cbox.getItems().addAll(
+					"Good Will Hunting", 
+					"St Vincent",
+					"Blackhat"
+			);
+			cbox.setEditable(true);
+			cbox.setPromptText("What's your favorite movie?");
+			// An Event is emitted when user selects 
+			cbox.setOnAction(e->System.out.println("User selected: " + cbox.getValue()));
 			
-			b1.setOnAction(e -> closeProgram());
-
-			StackPane layout = new StackPane();
-			layout.getChildren().add(b1);
+			Button b = new Button("Click me");
+			b.setOnAction(e->printMovie(cbox));
+			
+			VBox layout = new VBox(10);
+			layout.setPadding(new Insets(20, 20, 20, 20));
+			layout.getChildren().addAll(cbox, b);
 			
 			Scene scene = new Scene(layout, 600, 400);
 			window.setScene(scene);
@@ -33,6 +46,10 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void printMovie(ComboBox<String> cbox) {
+		System.out.println(cbox.getValue());
 	}
 	
 	private void closeProgram() {
