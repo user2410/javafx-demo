@@ -5,4 +5,5 @@ module javafx_demo {
 	requires javafx.graphics;
 	
 	opens application to javafx.graphics, javafx.fxml;
+	opens application.product to javafx.base, javafx.graphics, javafx.fxml;
 }
