@@ -4,13 +4,17 @@ import application.product.Product;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 
 public class Main extends Application {
@@ -39,14 +43,34 @@ public class Main extends Application {
 			quantityCol.setMinWidth(100);
 			quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 			
+			TextField nameInput = new TextField();
+			nameInput.setPromptText("Name");
+			
+			TextField priceInput = new TextField();
+			priceInput.setPromptText("Price");
+			
+			TextField quantityInput = new TextField();
+			quantityInput.setPromptText("Quantity");
+			
 			TableView<Product> table = new TableView<>();
 			table.setItems(getProduct());
 			table.getColumns().addAll(nameCol, priceCol, quantityCol);
-			
-			// Button b1 = new Button("Click me");
 
-			StackPane layout = new StackPane();
-			layout.getChildren().add(table);
+			// Buttons
+			Button addBtn = new Button("Add");
+			addBtn.setOnAction(e->addBtnClicked(table, nameInput, priceInput, quantityInput));
+			Button delBtn = new Button("Delete");
+			delBtn.setOnAction(e->delBtnClicked(table));
+			
+			HBox hBox = new HBox();
+			hBox.setPadding(new Insets(10, 10, 10, 10));
+			hBox.setSpacing(10);
+			hBox.getChildren().addAll(nameInput, priceInput, quantityInput, addBtn, delBtn);
+			
+			
+
+			VBox layout = new VBox();
+			layout.getChildren().addAll(table, hBox);
 			
 			Scene scene = new Scene(layout, 600, 400);
 			window.setScene(scene);
@@ -54,6 +78,25 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void delBtnClicked(TableView<Product> table) {
+		ObservableList<Product> selectedProducts, allProducts;
+		allProducts = table.getItems();
+		selectedProducts = table.getSelectionModel().getSelectedItems();
+		
+		selectedProducts.forEach(allProducts::remove);
+	}
+	
+	private void addBtnClicked(TableView<Product> table, TextField nameInput, TextField priceInput, TextField quantityInput) {
+		Product product = new Product();
+		product.setName(nameInput.getText());
+		product.setPrice(Double.parseDouble(priceInput.getText()));
+		product.setQuantity(Integer.parseInt(quantityInput.getText()));
+		table.getItems().add(product);
+		nameInput.clear();
+		priceInput.clear();
+		quantityInput.clear();	
 	}
 	
 	private ObservableList<Product> getProduct(){
