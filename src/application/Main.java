@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+//import javafx.scene.layout.StackPane;
 
 
 public class Main extends Application {
@@ -50,6 +50,7 @@ public class Main extends Application {
 			grid.getChildren().addAll(nameLabel, nameInput, passLabel, passInput, loginBtn);
 			
 			Scene scene = new Scene(grid, 600, 400);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			window.setScene(scene);
 			window.show();
 		} catch(Exception e) {
