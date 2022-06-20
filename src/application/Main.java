@@ -1,81 +1,61 @@
 package application;
 
-import javafx.application.Application; 
-import javafx.event.EventHandler;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
+import javafx.stage.Stage;
  
-import javafx.scene.Group; 
-import javafx.scene.Scene; 
-import javafx.scene.input.MouseEvent; 
-import javafx.scene.paint.Color; 
-import javafx.scene.shape.Circle; 
+public class Main extends Application {
+ 
+    public static void main(String[] args) {
+        launch(args);
+    }
+ 
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Drawing Operations Test");
+        Group root = new Group();
+        Canvas canvas = new Canvas(300, 250);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        drawShapes(gc);
+        root.getChildren().add(canvas);
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
 
-import javafx.scene.text.Font; 
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text; 
-import javafx.stage.Stage; 
-         
-public class Main extends Application { 
-   @Override 
-   public void start(Stage stage) {      
-      //Drawing a Circle 
-      Circle circle = new Circle(); 
-      
-      //Setting the position of the circle 
-      circle.setCenterX(300.0f); 
-      circle.setCenterY(135.0f); 
-      
-      //Setting the radius of the circle 
-      circle.setRadius(25.0f); 
-      
-      //Setting the color of the circle 
-      circle.setFill(Color.BROWN); 
-      
-      //Setting the stroke width of the circle 
-      circle.setStrokeWidth(20);      
-       
-      //Setting the text 
-      Text text = new Text("Click on the circle to change its color"); 
-      
-      //Setting the font of the text 
-      text.setFont(Font.font(null, FontWeight.BOLD, 15));     
-      
-      //Setting the color of the text 
-      text.setFill(Color.CRIMSON); 
-  
-      //setting the position of the text 
-      text.setX(150); 
-      text.setY(50); 
-       
-      //Creating the mouse event handler 
-      EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() { 
-         @Override 
-         public void handle(MouseEvent e) { 
-            System.out.println("Hello World " + e.getSceneX() + ',' + e.getSceneY()); 
-            circle.setFill(Color.DARKSLATEBLUE);
-         } 
-      };     
-       
-      //Creating a Group object  
-      Group root = new Group(circle, text); 
-         
-      //Creating a scene object 
-      Scene scene = new Scene(root, 600, 300); 
-      //Registering the event filter 
-      scene.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
-       
-      //Setting the fill color to the scene 
-      scene.setFill(Color.LAVENDER);  
-      
-      //Setting title to the Stage 
-      stage.setTitle("Event Filters Example");       
-         
-      //Adding scene to the stage 
-      stage.setScene(scene); 
-         
-      //Displaying the contents of the stage 
-      stage.show(); 
-   } 
-   public static void main(String args[]){ 
-      launch(args); 
-   } 
+    private void drawShapes(GraphicsContext gc) {
+    	// draw a line
+        gc.setFill(Color.GREEN);
+        gc.setStroke(Color.BLUE);
+        gc.setLineWidth(5);
+        gc.strokeLine(10, 10, 10, 100); // (x1, y1, x2, y2) -> (x1, y1): starting point; (x2, y2): ending point
+        
+        // draw an oval
+        // Stroking:
+        // getGraphicsContext2D().strokeOval(center.x-radius, center.y-radius, radius * 2, radius * 2);
+        // Filling:
+        // getGraphicsContext2D().fillOval(center.x-radius, center.y-radius, radius * 2, radius * 2);
+        gc.fillOval(5, 5, 20, 20);
+        
+//        gc.strokeOval(60, 60, 30, 30);
+        
+//        gc.fillRoundRect(110, 60, 30, 30, 10, 10);
+//        gc.strokeRoundRect(160, 60, 30, 30, 10, 10);
+//        gc.fillArc(10, 110, 30, 30, 45, 240, ArcType.OPEN);
+//        gc.fillArc(60, 110, 30, 30, 45, 240, ArcType.CHORD);
+//        gc.fillArc(110, 110, 30, 30, 45, 240, ArcType.ROUND);
+//        gc.strokeArc(10, 160, 30, 30, 45, 240, ArcType.OPEN);
+//        gc.strokeArc(60, 160, 30, 30, 45, 240, ArcType.CHORD);
+//        gc.strokeArc(110, 160, 30, 30, 45, 240, ArcType.ROUND);
+//        gc.fillPolygon(new double[]{10, 40, 10, 40},
+//                       new double[]{210, 210, 240, 240}, 4);
+//        gc.strokePolygon(new double[]{60, 90, 60, 90},
+//                         new double[]{210, 210, 240, 240}, 4);
+//        gc.strokePolyline(new double[]{110, 140, 110, 140},
+//                          new double[]{210, 210, 240, 240}, 4);
+    }
 }
