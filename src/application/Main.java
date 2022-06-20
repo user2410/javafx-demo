@@ -1,7 +1,9 @@
 package application;
 	
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 
@@ -12,7 +14,12 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			window = primaryStage;
-						
+			
+			Parent root = FXMLLoader.load(getClass().getResource("Sample.fxml"));
+			
+			Scene scene = new Scene(root, 300, 200);
+			
+			window.setScene(scene);
 			window.setTitle("JavaFx demo");
 			window.show();
 		} catch(Exception e) {
