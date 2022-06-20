@@ -6,6 +6,15 @@
       fx:controller="application.SampleController">
     
     <Label text="I love bacon" fx:id="label1"/>
-    <Button text="Submit" fx:id="button1" onAction="#handleButtonClick"/>
+    <!--Binding: <Label text="${label1.text}"/>-->
     
+    <!-- Reusable -->
+    <fx:define>
+        <ToggleGroup fx:id="toggleGroup"/>
+    </fx:define>
+    
+    <Label text="Difficulty"/>
+    <RadioButton text="Easy" toggleGroup="$toggleGroup"/>
+    <RadioButton text="Medium" toggleGroup="$toggleGroup"/>
+    <RadioButton text="Hard" toggleGroup="$toggleGroup"/>
 </VBox>

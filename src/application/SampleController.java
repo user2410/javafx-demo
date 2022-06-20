@@ -1,15 +1,17 @@
 package application;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class SampleController {
-	
-	public Label label1;
-	public Button button1;
-	
-	public void handleButtonClick() {
-		System.out.println("button clicked");
-		label1.setText("stop touching me");
+public class SampleController implements Initializable{
+
+	@Override
+	public void initialize(URL location, ResourceBundle resource) {
+		System.out.println("Loading user data ...");
 	}
+	
 }
